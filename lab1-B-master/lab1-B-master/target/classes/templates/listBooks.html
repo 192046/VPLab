@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Books Homepage - Welcome to My Book Store</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Book Store</h1>
+</header>
+<main>
+    <h2>Choose book:</h2>
+    <form th:method="POST" action="/books">
+        <ul>
+            <li th:each="book : ${books}"><input type="radio" name="book" th:value="${book.getIsbn()}" th:text="'Title: ' + ${book.getTitle()} + ', Genre: ' + ${book.getGenre()} + ', Year: ' + ${book.getYear()} + ', Book Store: ' + ${book.getBookStore().getName()}">
+<!--                <form th:method="delete" th:action="@{'/books/delete/{id}' (id=${book.getId()})}">-->
+<!--                    <button type="submit">Delete</button>-->
+<!--                </form>-->
+                <a th:href="@{'/books/delete/{id}' (id=${book.getId()})}" th:method="get" >Delete</a>
+                <a th:href="@{'/books/edit-form/{id}' (id=${book.getId()})}">Edit</a>
+            </li>
+        </ul>
+        <input type="submit" value="Submit">
+    </form>
+    <div>
+        <a href="/books/add-form">Add new book</a>
+    </div>
+    <!-- Display radio buttons for each book,
+            the value should be the isbn
+            and the displayed text should be Title: <bookTitle>, Genre:<genre>, Year: <year> -->
+</main>
+</body>
+</html>

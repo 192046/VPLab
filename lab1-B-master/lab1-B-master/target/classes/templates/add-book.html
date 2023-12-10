@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add-product</title>
+</head>
+<body>
+<!--<form th:action="@{'/books/edit/{bookId}' (bookId=${book.getId()})}" method="post">-->
+<form action="/books/add" method="post">
+    <label for="title">Product name</label>
+    <input type="text" id="title" name="title" th:value="(${book} != null ? ${book.getTitle()} : '' )" required placeholder="Enter title">
+
+    <label for="year">Year</label>
+    <input type="text" id="year" name="year" th:value="(${book} != null ? ${book.getYear()} : '' )" required placeholder="Enter year">
+
+    <label for="genre">Genre</label>
+    <input type="text" id="genre" name="genre" th:value="(${book} != null ? ${book.getGenre()} : '' )" required placeholder="Enter genre">
+
+    <label for="isbn">Isbn</label>
+    <input type="text" id="isbn" name="isbn" th:value="(${book} != null ? ${book.getIsbn()} : '' )" required placeholder="Enter isbn">
+
+    <div>
+        <label>Bookstore</label>
+        <select name="bookStore">
+            <option th:if="${book} != null" th:selected="${book.getBookStore() != null && book.getBookStore().getId() == bookstore.getId()}" th:each="bookstore : ${bookstores}" th:text="${bookstore.getName()}" th:value="${bookstore.getId()}">
+
+            </option>
+            <option th:if="${book} == null" th:each="bookstore : ${bookstores}" th:text="${bookstore.getName()}" th:value="${bookstore.getId()}">
+
+            </option>
+        </select>
+    </div>
+
+<!--    <input type="hidden" th:value="${book.getId()}" name="bookId" />-->
+    <button type="submit">Submit</button>
+    <a type="button" href="/books">Back</a>
+</form>
+
+</body>
+</html>

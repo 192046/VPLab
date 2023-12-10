@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add new Author to Book</title>
+    <style type = "text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding:3px 2px;
+        }
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+        aside {
+            float: right;
+            margin: 0 1.5%;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Author to add to the Book </h1>
+</header>
+<section>
+    <h2>Select author:</h2>
+    <form th:method="POST" action="/author">
+        <li th:each="author : ${authors}"><input type="radio" name="authId" th:value="${author.getId()}" th:text="${author.getName()} + ' ' + ${author.getSurname()} +' ' +${author.getBiography()} ">
+            <a th:href="@{'/author/deleteone/{id}' (id=${author.getId()})}" th:method="get" >Delete</a>
+            <a th:href="@{'/author/edit-form/{id}' (id=${author.getId()})}">Edit</a></li>
+        <input type='submit' value='Add author'>
+    </form>
+    <!-- Make changes to this code to dynamically display radio buttons for each author as in the example -->
+
+    <br/>
+
+
+</section>
+<aside>
+    <table>
+        <tr>
+            <!-- change to show selected book isbn -->
+            <td><b>Book Isbn</b></td>
+            <td><p th:text="${isbn}"></p></td>
+        </tr>
+    </table>
+</aside>
+</body>
+</html>
